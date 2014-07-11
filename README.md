@@ -18,6 +18,7 @@ Uses packages:
 To re-generate the tables and figures of the paper, using saved objects
 (minimal time commitment), run:
 
+````
 > source("genFig1_2_3_gam.R")
 > source("genFig4.R")
 > source("genFig5.R")
@@ -25,12 +26,15 @@ To re-generate the tables and figures of the paper, using saved objects
 > source("analyzeSims.R")
 > source("chicagoAnalysis.R")
 > source("genFig8_9_10_gam.R")
+````
 
 In addition, code to re-create the basis objects is contained in several
 of these routines as comments.
 
 To re-create the simulated realizations, run
+````
 > source("sim_fullModels.R")
+````
 although you should expect it to take some time to complete.
 
 All testing was done on R 3.1.0 on an x86_64 Linux machine running
