@@ -2,6 +2,7 @@ bias-in-estimation
 ==================
 
 Code and Results for paper "Bias in Estimation of ... "
+by Burr, Takahara and Shin, submitted to Environmetrics, http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)1099-095X.
 
 Uses packages:
 * gam: http://cran.r-project.org/web/packages/gam/index.html
