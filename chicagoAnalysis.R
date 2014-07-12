@@ -152,7 +152,11 @@ coefs <- coefs[c(1,3,5,7,2,4,6,8), ]
 
 #
 #  Results for Table 4
-#  
+# 
+nameOrder <- c("NS", "SLP", "SLP2", "SLP3")
+row.names(coefs) <- c(paste0("$mathbf{S}$", nameOrder, "-6"),
+                      paste0("$mathbf{S}$", nameOrder, "-12"))
+
 xtable(coefs[, 1:4], digits = 3, display = rep("e", 5))
 xtable(coefs[, 5:8], digits = 3, display = rep("e", 5))
 
