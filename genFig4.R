@@ -50,12 +50,13 @@ tf2 <- moveAvg(tf2)
 PerLab <- c(0:7, 14, 21, 30, 60, 120, 365)
 atPerLab <- 365 / PerLab   # already scaled the freq array to be in cycles/year, not cycles/day
 yAxisP <- 10^(seq(-15, 1, 1))
-yAxisL <- paste0("1e-", 15:1)
+yAxisL <- c(paste0("1e-", 15:1), "1e0", "1e1")
 
 #
 #  Generate Figure 4
 #
-pdf(file="../figures/transferFuncCubic.pdf",width=6,height=5)
+# pdf(file="../figures/transferFuncCubic.pdf",width=6,height=5)
+postscript(file="../figures/transferFuncCubic.eps", width=6, height=5)
 par(mar=c(4,4,4,0.5))
 plot(freqs, tf, type="l", col="black", lwd=2, log="y", xlim=c(0,20),
      ylim=c(1e-14,1.1e0), xlab="Frequency in Cycles/Year", 

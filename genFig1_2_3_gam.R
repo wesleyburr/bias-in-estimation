@@ -112,7 +112,8 @@ n <- length(xaxis)
 #
 #  Generate Figure 1 of paper
 #
-pdf(file="../figures/chicagoResidAutocor.pdf", width=6, height=4)
+# pdf(file="../figures/chicagoResidAutocor.pdf", width=6, height=4)
+postscript(file = "../figures/chicagoResidAutocor.eps", width = 6, height = 4)
 par(mar=c(4,4,1,1))
 plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estimate",
      xaxs = "i", xaxt = 'n', ylim = c(-0.15, 0.18))
@@ -133,7 +134,8 @@ axisFreq2 <- c(1:10, 15, 20, 30, 40, 50)
 #
 #  Generate Figure 2 of paper
 #
-pdf(file="../figures/chicagoResidSpectrum.pdf", width=6, height=6)
+# pdf(file="../figures/chicagoResidSpectrum.pdf", width=6, height=6)
+postscript(file = "../figures/chicagoResidSpectrum.eps", width = 6, height = 6)
 par(mar=c(4,4,4,1))
 yLabExp <- expression(paste("Power Spectrum in ppb"^2, "/(cycle/year)", sep = ""))
 plot(resid.sp$freq, resid.sp$spec, type="l", log="y", xlab="Frequency in cycles/year", ylab="", 
@@ -155,7 +157,8 @@ yrs <- ISOdate(seq(1987, 2000, 1), rep(1, 8), rep(1, 8))
 #
 #  Generate Figure 3 of paper
 #
-pdf(file="../figures/chicagoResidTimeDomain.pdf", width=6, height=4)
+# pdf(file="../figures/chicagoResidTimeDomain.pdf", width=6, height=4)
+postscript(file="../figures/chicagoResidTimeDomain.eps", width=6, height=4)
 par(mar=c(4,4,1,1))
 plot(timeAxis, resid, type="l", col="grey80", ylim=c(-0.3,0.5), 
      xlab="Time in Years", ylab="Residuals in log(ppb)", xaxs="i", xaxt = 'n')

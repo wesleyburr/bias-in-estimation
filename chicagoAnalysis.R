@@ -183,7 +183,8 @@ xInL <- coefs[c(set1, set3), 1] - 2 * coefs[c(set1, set3), 2]
 #
 #  Figure 7
 #
-pdf(file = "../figures/chicagoDeathOzoneCI.pdf", width = 9, height = 9)
+# pdf(file = "../figures/chicagoDeathOzoneCI.pdf", width = 9, height = 9)
+postscript(file = "../figures/chicagoDeathOzoneCI.eps", width = 9, height = 9)
 par(mar = c(4,0.5,0.5,0.5))
 plotCI(x = NA, y = NA, ylim = c(-0.5,9.5), xlim = c(minx, 1.2e-3), ylab = "", xlab ="", yaxt = 'n')
 abline(v = 0, lty = 2, col = "grey60")
