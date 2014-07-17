@@ -4,12 +4,12 @@
 setupWin: 
 	R CMD BATCH installCRANpackages.R
 	R CMD INSTALL ./packages/*.zip
-	rm -vf *.Rout
+	rm -vf *.Rout .RData
 
 setupNix:
 	R CMD BATCH installCRANpackages.R
 	R CMD INSTALL ./packages/*.tar.gz
-	rm -vf *.Rout
+	rm -vf *.Rout .RData
 
 all: 
 	rm -vf ./figures/*.eps 
@@ -21,12 +21,12 @@ all:
 	R CMD BATCH genFig8_9_10_gam.R 
 	R CMD BATCH chicagoAnalysis.R     # saves two tables to ./tables/, one figure to ./figures
 	R CMD BATCH analyzeSims.R         # saves four tables to ./tables
-	rm -vf *.Rout
+	rm -vf *.Rout .RData
 
 #  If you want to verify the realizations of the simulations 
 #  (or generate a new set) ...
 sim: 
 	R CMD BATCH sim_fullModels.R
-	rm -vf *.Rout
+	rm -vf *.Rout .RData
 
 
