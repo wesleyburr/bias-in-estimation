@@ -130,11 +130,11 @@ set.seed(23)
 #  > basis8 <- basis6[, -1]
 #  > bases <- vector("list", 8)
 #  > for(j in 1:8) { bases[[j]] <- get(paste("basis", j, sep="")) }
-#  > save(file="./data/fullModelsBases.RDa", bases)
+#  > save(file="./data/fullModelsBases.RData", bases)
 #
 
 # Load the 8 basis sets and assign them to variable names used below
-load("./data/fullModelsBases.RDa")
+load("./data/fullModelsBases.RData")
 for(j in 1:8) {
   assign(paste("basis", j, sep = ""), bases[[j]])
 }

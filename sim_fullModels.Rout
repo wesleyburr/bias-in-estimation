@@ -1,0 +1,165 @@
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-redhat-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #
+> #  Simulation: Models
+> #
+> #  Simulations for Section 5.1
+> #  * Model: Y ~ X + smooth function + \epsilon
+> #  * variations to demonstrate the different smoothers
+> #
+> #  Generates realizations which are used as simulations in paper; file
+> #  analyzeSims.R uses these saved realizations and analyzes them.
+> #
+> 
+> ################################################################################
+> #
+> # Two-sided running-mean smoother, uses smoother matrix setup; neh = (lFilt - 1)/2
+> #
+> twoSidedSmooth <- function(x, neh) {
++     
++     # neh = Number Each Half
++ 
++     stopifnot(is.numeric(neh))
++     stopifnot(is.numeric(x), (N <- length(x)) > (2*neh+1))
++ 
++     lFilt <- 2 * neh + 1
++     filt <- c(rep(1/lFilt, lFilt), rep(0, (N + 1 - lFilt)))
++ 
++     # filter gets applied to the (neh+1)th point ... (N-neh)th point
++     # = total of N - lFilt + 1 rows
++     filtMat <- matrix(data = rep(filt, N - lFilt + 1)[1:(N * (N - 2 * neh))], ncol = N, nrow = (N - 2 * neh), byrow = TRUE)
++ 
++     y <- x
++     y[1:neh] <- rep(mean(x[1:(neh+1)], na.rm = TRUE), neh)
++     y[(N - neh + 1):N] <- rep(mean(x[(N - neh):N], na.rm = TRUE), neh)
++     y[(neh+1):(N-neh)] <- (filtMat %*% x) 
++ 
++     y
++ }
+> 
+> ################################################################################
+> #
+> # Create a matrix of sinusoids for setting background noise; all are perfectly
+> # in phase unless otherwise specified ... could easily set arbitrary phases for 
+> # more randomness
+> #
+> createSineArr <- function(n, dT, nMesh, phse = NULL) {
++   tArr <- (1:n)*86400
++   sineMat <- matrix(data = 0, nrow = n, ncol = nMesh) 
++   freq <- seq(1/nMesh/dT/2, 1/2/dT, 1/nMesh/dT/2) 
++   if(is.null(phse)) {
++     for(j in 1:nMesh) { sineMat[, j] <- sin(2 * pi * tArr * freq[j]) }
++   } else if(is.numeric(phse)) {
++      for(j in 1:nMesh) { sineMat[, j] <- sin(2 * pi * tArr * freq[j] + phse[j]) }
++   }
++   sineMat
++ }
+> 
+> ################################################################################
+> #
+> #  Compute metrics and statistics for each realization (e.g., M1, M2, etc.)
+> #
+> computeStats <- function(S, Xlp, Xhp, Ylp, Yhp) {
++  
++   X <- Xlp + Xhp
++   Y <- Ylp + Yhp
++   oneV <- rep(1, length(X))
++   xHat <- X - S %*% X
++   yHat <- Y - S %*% Y
++   oHat <- oneV - S %*% oneV
++    
++   M1 <- t(oHat) %*% oHat    # || oHat ||^2
++   M2 <- t(oHat) %*% xHat    # oHat * x_{HP}
++   xHat2 <- t(xHat) %*% xHat
++ 
++   alp <- (M1 * xHat2) / (M1 * xHat2 - M2^2)
++   gam <- (M2 * t(oHat) %*% yHat) / (M1 * t(xHat) %*% xHat - M2^2)
++ 
++   fits <- matrix(data = 0, nrow = 12, ncol = 1)
++ 
++   fits[1]  <- lm(Y ~ X)$coefficients[2]
++   fits[2]  <- lm(Yhp ~ X)$coefficients[2]
++   fits[3]  <- lm(yHat ~ X)$coefficients[2]
++   fits[4]  <- lm(yHat - Yhp ~ X)$coefficients[2]
++   fits[5]  <- lm(Y ~ Xhp)$coefficients[2]
++   fits[6]  <- lm(Yhp ~ Xhp)$coefficients[2]
++   fits[7]  <- lm(yHat ~ Xhp)$coefficients[2]
++   fits[8]  <- lm(yHat - Yhp ~ Xhp)$coefficients[2]
++   fits[9]  <- lm(Y ~ xHat)$coefficients[2]
++   fits[10] <- lm(Yhp ~ xHat)$coefficients[2]
++   fits[11] <- lm(yHat ~ xHat)$coefficients[2]
++   fits[12] <- lm(yHat - Yhp ~ xHat)$coefficients[2]
++ 
++   return(list(alp, gam, fits))
++ }
+> 
+> ################################################################################
+> #
+> #  Setup for simulations
+> #
+> 
+> library("gam")  #  auto-loads 'splines'
+Loading required package: splines
+Loaded gam 1.09.1
+
+> library("slp")
+> library("MASS")
+> 
+> N <- 365 * 10
+> tArr <- 1:N
+> nSim <- 250    # number of realizations
+> nMesh <- 2^14
+> dT <- 86400  # 86,400 seconds in 1 day
+> 
+> sineMat <- createSineArr(n = N, dT = dT, nMesh = nMesh, phse = NULL)
+> phseArr <- rep(0, nMesh)
+> freqs <- seq(1/nMesh/dT/2, 1/2/dT, 1/nMesh/dT/2)
+> 
+> yMean <- 1.0
+> dfGAM <- c(60, 120, 60, 120)
+> oneV  <- rep(1, N)
+> 
+> # set seed for rnorm() below [through all 4 simulations]
+> set.seed(23)
+> 
+> #  Code to create bases for various smoothers; these have been precomputed and are
+> #  provided as part of this reposity
+> #
+> #  > basis1 <- ns(x = tArr, df = dfGAM[1])
+> #  > basis2 <- ns(x = tArr, df = dfGAM[2])
+> #  > basis3 <- slp(x = tArr, K = dfGAM[3], naive = TRUE)
+> #  > basis4 <- slp(x = tArr, K = dfGAM[4], naive = TRUE)
+> #  > basis5 <- slp(x = tArr, K = dfGAM[3], intercept = TRUE)
+> #  > basis6 <- slp(x = tArr, K = dfGAM[4], intercept = TRUE)
+> #  > basis7 <- basis5[, -1] # equiv to running slp with intercept = FALSE
+> #  > basis8 <- basis6[, -1]
+> #  > bases <- vector("list", 8)
+> #  > for(j in 1:8) { bases[[j]] <- get(paste("basis", j, sep="")) }
+> #  > save(file="./data/fullModelsBases.RDa", bases)
+> #
+> 
+> # Load the 8 basis sets and assign them to variable names used below
+> load("./data/fullModelsBases.RDa")
+Error in readChar(con, 5L, useBytes = TRUE) : cannot open the connection
+Calls: load -> readChar
+In addition: Warning message:
+In readChar(con, 5L, useBytes = TRUE) :
+  cannot open compressed file './data/fullModelsBases.RDa', probable reason 'No such file or directory'
+Execution halted
