@@ -46,7 +46,7 @@
 #   > loadCity("chic")
 #   > chic <- chic[, c("city", "date", "dow", "death", "cvd", 
 #   +                  "tmpd", "o3tmean", "pm10tmean")]
-#   > save(file = "chic.RDa", chic)
+#   > save(file = "chic.RData", chic)
 #
 
 #   NMMAPSdata used to have a source version available which could be recompiled
@@ -67,9 +67,9 @@ library("multitaper")
 
 #  Code to interpolate PM10 missing values to allow for spectrum estimation
 #
-#  Note: file chic.RDa included with this repository has had this interpolation done already
+#  Note: file chic.RData included with this repository has had this interpolation done already
 #
-load("chic.RDa")
+load("./data/chic.RData")
 if(!("pm10tmeanGF" %in% names(chic))) {
     library("tsinterp")                       # package for interpolation; available from http://github.com/wesleyburr/tsinterp
     chicPM10 <- chic[, "pm10tmean"]
@@ -81,7 +81,7 @@ if(!("pm10tmeanGF" %in% names(chic))) {
     pm10tmeanGF <- linInt(chicPM10, blocks)
     time <- seq(1, length(chicPM10), 1)
     chic <- cbind(chic, pm10tmeanGF, time)
-    save(file = "chic.RDa", chic)
+    save(file = "chic.RData", chic)
 }  # end interpolation
 
 timeAxis <- ISOdate(substr(chic$date, 1, 4), substr(chic$date, 5, 6), substr(chic$date, 7, 8))

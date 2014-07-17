@@ -15,7 +15,7 @@ library("slp")
 library("gplots")
 library("xtable")
 
-load("chic.RDa")
+load("./data/chic.RData")
 
 tArr <- 1:length(chic[[1]])
 dfGAM <- c(6 * 14, 12 * 14)
@@ -32,10 +32,10 @@ dfGAM <- c(6 * 14, 12 * 14)
 #  > 
 #  > bases <- vector("list", 8)
 #  > for(j in 1:8) { bases[[j]] <- get(paste("basis", j, sep="")) }
-#  > save(file="chicagoBases.RDa", bases)
+#  > save(file="./data/chicagoBases.RData", bases)
 #
 
-load("chicagoBases.RDa")
+load("./data/chicagoBases.RData")
 for(j in 1:8) {
   assign(paste("basis", j, sep = ""), bases[[j]])
 }
@@ -157,8 +157,11 @@ nameOrder <- c("NS", "SLP", "SLP2", "SLP3")
 row.names(coefs) <- c(paste0("$mathbf{S}$", nameOrder, "-6"),
                       paste0("$mathbf{S}$", nameOrder, "-12"))
 
-xtable(coefs[, 1:4], digits = 3, display = rep("e", 5))
-xtable(coefs[, 5:8], digits = 3, display = rep("e", 5))
+tab1 <- xtable(coefs[, 1:4], digits = 3, display = rep("e", 5))
+tab2 <- xtable(coefs[, 5:8], digits = 3, display = rep("e", 5))
+
+print.xtable(tab1, file = "./tables/chicagoTableA.tex")
+print.xtable(tab2, file = "./tables/chicagoTableB.tex")
 
 ################################################################################
 #

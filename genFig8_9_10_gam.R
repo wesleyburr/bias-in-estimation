@@ -40,17 +40,15 @@
 #  Using Commands:
 #  > install.packages("NMMAPSdata", contriburl = "http://www.ihapss.jhsph.edu/data/NMMAPS/R/", type = "source")
 #  > buildDB(procFunc = collapseEndpoints)
-#
+#  > registerDB("collapseEndpoints")
+#  > loadCity("chic")   # ``chic'' dataframe now available for use
 
-# library("NMMAPSdata")
-# registerDB("collapseEndpoints")
-# loadCity("chic")   # ``chic'' dataframe now available for use
-load("chic.RDa")   
+load("./data/chic.RData")   
    # NMMAPSdata has been broken for a year now.
    # It has been reported to Roger Peng several times, but nothing has been done
-   # chic.RDa was extracted from an old copy of the package and used
+   # chic.RData was extracted from an old copy of the package and used
 
-load("chicagoBases.RDa")
+load("./data/chicagoBases.RData")
 for(j in 1:8) {
   assign(paste("basis", j, sep = ""), bases[[j]])
 }

@@ -37,5 +37,18 @@ To re-create the simulated realizations, run
 ````
 although you should expect it to take some time to complete.
 
-All testing was done on R 3.1.0 on an x86_64 Linux machine running
-Fedora 20. 
+If you are comfortable with makefiles, one is included which will
+install all required packages and then run all code but the recreation
+of the simulations. 
+
+Under Windows:
+C:\> make -f Makefile setupWin
+C:\> make -f Makefile all
+
+Under *nix:
+[user@system ]$ make -f Makefile setupNix
+[user@system ]$ make -f Makefile all
+
+Testing was done:
+ * x86_64 Linux (Fedora 20) installation, R 3.1.0
+ * x86_64 Windows (7, SP1) installation, R 3.1.1

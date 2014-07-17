@@ -72,4 +72,3 @@ text(x = c(1, 1, 1, 10, 6.1), y = c(1e-9, 1e-10, 1e-11, 1e-5, 1e-1),
      labels = c("Mean TF of", "Basis Vectors", "1-58", "Mean Simulated White Noise TF", "Ideal TF"),
      col = c("black", "black", "black", "grey60", "red"), pos = 4)
 dev.off()
-

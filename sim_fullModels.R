@@ -114,6 +114,9 @@ yMean <- 1.0
 dfGAM <- c(60, 120, 60, 120)
 oneV  <- rep(1, N)
 
+# set seed for rnorm() below [through all 4 simulations]
+set.seed(23)
+
 #  Code to create bases for various smoothers; these have been precomputed and are
 #  provided as part of this reposity
 #
@@ -127,11 +130,11 @@ oneV  <- rep(1, N)
 #  > basis8 <- basis6[, -1]
 #  > bases <- vector("list", 8)
 #  > for(j in 1:8) { bases[[j]] <- get(paste("basis", j, sep="")) }
-#  > save(file="fullModelsBases.RDa", bases)
+#  > save(file="./data/fullModelsBases.RDa", bases)
 #
 
 # Load the 8 basis sets and assign them to variable names used below
-load("fullModelsBases.RDa")
+load("./data/fullModelsBases.RDa")
 for(j in 1:8) {
   assign(paste("basis", j, sep = ""), bases[[j]])
 }
@@ -256,7 +259,7 @@ for(k in 1:nSim) {
 }
 cat("\n")
 
-save(file = "simFullModelsResults1.RDa", sim1)
+save(file = "./data/simFullModelsResults1.RData", sim1)
 
 ################################################################################
 #
@@ -370,7 +373,7 @@ for(k in 1:nSim) {
 }
 cat("\n")
 
-save(file = "simFullModelsResults2.RDa", sim2)
+save(file = "./data/simFullModelsResults2.RData", sim2)
 
 ################################################################################
 #
@@ -486,7 +489,7 @@ for(k in 1:nSim) {
 }
 cat("\n")
 
-save(file = "simFullModelsResults3.RDa", sim3)
+save(file = "./data/simFullModelsResults3.RData", sim3)
 
 ################################################################################
 #
@@ -603,5 +606,5 @@ for(k in 1:nSim) {
 }
 cat("\n")
 
-save(file = "simFullModelsResults4.RDa", sim4)
+save(file = "./data/simFullModelsResults4.RData", sim4)
 
