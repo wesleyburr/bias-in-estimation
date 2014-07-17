@@ -42,13 +42,17 @@ install all required packages and then run all code but the recreation
 of the simulations. 
 
 Under Windows:
+````
 C:\> make -f Makefile setupWin
 C:\> make -f Makefile all
+````
 
 Under *nix:
+````
 [user@system ]$ make -f Makefile setupNix
 [user@system ]$ make -f Makefile all
+````
 
 Testing was done:
- * x86_64 Linux (Fedora 20) installation, R 3.1.0
- * x86_64 Windows (7, SP1) installation, R 3.1.1
+*  x86_64 Linux (Fedora 20) installation, R 3.1.0
+*  x86_64 Windows (7, SP1) installation, R 3.1.1
