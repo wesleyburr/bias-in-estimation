@@ -26,7 +26,7 @@ pMax <- max(oneP1, oneP2)
 #  Generate Figure 6
 #
 # pdf(file = "figures/gibbsRipples.pdf", width = 6, height = 4)
-postscript(file = "figures/gibbsRipples.eps", width = 6, height = 4,
+postscript(file = "figures/fig6-gibbsRipples.eps", width = 6, height = 4,
            horizontal = FALSE, paper = 'special')
 par(mar = c(4,4,0.5,0.5))
 plot(1:N, oneV, type = "l", lwd = 2, xlab = "Time", ylab = "Magnitude", ylim = c(0.75, pMax))

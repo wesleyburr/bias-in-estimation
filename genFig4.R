@@ -56,7 +56,7 @@ yAxisL <- c(paste0("1e-", 15:1), "1e0", "1e1")
 #  Generate Figure 4
 #
 # pdf(file="figures/transferFuncCubic.pdf",width=6,height=5)
-postscript(file="figures/transferFuncCubic.eps", width=6, height=5)
+postscript(file="figures/fig4-transferFuncCubic.eps", width=6, height=5)
 par(mar=c(4,4,4,0.5))
 plot(freqs, tf, type="l", col="black", lwd=2, log="y", xlim=c(0,20),
      ylim=c(1e-14,1.1e0), xlab="Frequency in Cycles/Year", 

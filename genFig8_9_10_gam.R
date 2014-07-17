@@ -111,7 +111,7 @@ xaxis <- resid.acf$lag[-1]
 n <- length(xaxis)
 
 # pdf(file="figures/chicagoResidAutocorB.pdf", width=6, height=4)
-postscript(file="figures/chicagoResidAutocorB.eps", width=6, height=4,
+postscript(file="figures/fig8-chicagoResidAutocorB.eps", width=6, height=4,
            horizontal = FALSE, paper = 'special')
 par(mar=c(4,4,1,1))
 plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estimate",
@@ -134,7 +134,7 @@ axisFreq <- 1/(axisPeriod * 86400) # frequencies in Hz from those periods
 axisFreq2 <- c(1:10,15,20,30,40,50)
 
 # pdf(file="figures/chicagoResidSpectrumB.pdf", width=6, height=6)
-postscript(file="figures/chicagoResidSpectrumB.eps", width=6, height=6,
+postscript(file="figures/fig9-chicagoResidSpectrumB.eps", width=6, height=6,
            horizontal = FALSE, paper = 'special')
 par(mar=c(4,4,4,1))
 yLabExp <- expression(paste("Power Spectrum in ppb"^2, "/(cycle/year)", sep = ""))
@@ -154,7 +154,7 @@ resid.low <- dpssFiltNA(N=length(resid), w=6/365.2425, xd=resid)
 yrs <- ISOdate(seq(1987, 2000, 1), rep(1, 8), rep(1, 8))
 
 # pdf(file="figures/chicagoResidTimeDomainB.pdf", width=6, height=4)
-postscript(file="figures/chicagoResidTimeDomainB.eps", width=6, height=4,
+postscript(file="figures/fig10-chicagoResidTimeDomainB.eps", width=6, height=4,
            horizontal = FALSE, paper = 'special')
 par(mar=c(4,4,1,1))
 plot(timeAxis, resid, type="l", col="grey80", ylim=c(-0.3,0.5), 
