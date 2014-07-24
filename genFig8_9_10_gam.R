@@ -103,6 +103,7 @@ fitOld <- gam(as.formula(modelFormulaOrig), family = poisson, data = chic, na.ac
 resid <- fit$residuals
 resid.acf <- acf(resid, lag.max=50, plot=FALSE)
 
+resid.old <- fitOld$residuals
 resid.acf.old <- acf(fitOld$residuals, lag.max = 50, plot = FALSE)
 
 xaxis <- resid.acf$lag[-1]
@@ -117,6 +118,7 @@ plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estim
 axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
 abline(h=0)
 lines(xaxis, resid.acf$acf[-1], type = "b", col = "black", lwd = 2)
+points(xaxis, resid.acf$acf[-1], pch = 19)
 lines(xaxis, resid.acf.old$acf[-1], type = "b", col = "blue", lty = 2)
 legend(x = "topright", col = c("black", "blue"), lty = c(1, 2), 
        legend = c("Updated S-SLP2-12 Model", "Original S-NS-6 Model"))
@@ -149,6 +151,7 @@ dev.off()
 
 # time domain representation
 resid.low <- dpssFiltNA(N=length(resid), w=6/365.2425, xd=resid)
+resid.old.low <- dpssFiltNA(N=length(resid.old), w=6/365.2425, xd=resid.old)
 yrs <- ISOdate(seq(1987, 2000, 1), rep(1, 8), rep(1, 8))
 
 # pdf(file="figures/chicagoResidTimeDomainB.pdf", width=6, height=4)
@@ -158,6 +161,9 @@ par(mar=c(4,4,1,1))
 plot(timeAxis, resid, type="l", col="grey80", ylim=c(-0.3,0.5), 
      xlab="Time in Years", ylab="Residuals in log(ppb)", xaxs="i", xaxt = 'n')
 axis(side = 1, at = yrs, labels = c(1987, "", "", 1990, "", 1992, "", 1994, "", 1996, "", 1998, "", 2000))
-lines(timeAxis, resid.low, lwd=2)
+lines(timeAxis, resid.old.low, lwd = 2, lty = 1, type = "l", col = "grey50")
+lines(timeAxis, resid.low, lwd=3)
+legend(x = "topright", lty = c(1, 1, 1), lwd = c(2, 2, 3), col = c("grey80", "grey50", "black"),
+       legend = c("Residuals", "Long Time-scale Residuals (Model 2)", "Long Time-scale Residuals (Model 9)"))
 dev.off()
 
