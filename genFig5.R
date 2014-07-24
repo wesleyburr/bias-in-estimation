@@ -92,6 +92,7 @@ axis(side = 1, line = 0, at = PerLab, labels = PerLab)
 mtext("Period in Days", side = 3, line = 2)
 
 legend(x = "topright", lty = c(1,2,1,2, 3), col = c("grey60", "grey60", "black", "black", "red"),
-       legend = c("slp(60)", "slp(120)", "ns(60)", "ns(120)", "Ideal"))
+       legend = c("S-SLP-6 (60)", "S-SLP-12 (120)", "S-NS-6 (60)", "S-NS-12 (120)", "Ideal"),
+       lwd = c(2, 2, 2, 2, 2))
 dev.off()
 
