@@ -172,9 +172,11 @@ print.xtable(tab2, file = "./tables/chicagoTableB.tex")
 
 # Set 1: death ~ ozone, S1,3,5,7
 # Set 3: death ~ ozone, S2,4,6,8
+# set1 <- c(1,3,5,7)
+# set3 <- c(2,4,6,8)
 
-set1 <- c(1,3,5,7)
-set3 <- c(2,4,6,8)
+set1 <- c(1, 2, 3, 4)
+set3 <- c(5, 6, 7, 8)
 
 minx <- min(coefs[c(set1,set3), 1] - 2 * coefs[c(set1, set3), 2], coefs[c(set1, set3), 1] + 2 * coefs[c(set1, set3), 2])
 maxx <- 1.10 * max(coefs[c(set1, set3), 1] - 2 * coefs[c(set1, set3), 2], coefs[c(set1, set3), 1] + 2 * coefs[c(set1, set3), 2])
@@ -190,12 +192,11 @@ xInL <- coefs[c(set1, set3), 1] - 2 * coefs[c(set1, set3), 2]
 postscript(file = "figures/fig7-chicagoDeathOzoneCI.eps", width = 9, height = 9,
            horizontal = FALSE, paper = 'special')
 par(mar = c(4,0.5,0.5,0.5))
-plotCI(x = NA, y = NA, ylim = c(-0.5,9.5), xlim = c(minx, 1.2e-3), ylab = "", xlab ="", yaxt = 'n')
+plotCI(x = NA, y = NA, ylim = c(-0.5,7.5), xlim = c(minx, maxx), ylab = "", xlab ="", yaxt = 'n')
 abline(v = 0, lty = 2, col = "grey60")
 par(new = TRUE)
-plotCI(x = xIn, y = c(8:5, 3:0), ui = xInU, li = xInL, err = "x", lwd = 2, sfrac = 0,
-       ylim = c(0,8), xlim = c(minx, maxx), ylab = "", xlab = "", yaxt = 'n', xaxt = 'n')
-text(x = 6e-4, y = seq(8.2,0.2,-1), labels = c("S-NS-6", "S-SLP-6", "S-SLP2-6", "S-SLP3-6", "", "S-NS-12", "S-SLP-12", "S-SLP2-12", "S-SLP3-12"), las = 1)
-abline(h = 4)
+plotCI(x = xIn, y = c(7:0), ui = xInU, li = xInL, err = "x", lwd = 2, sfrac = 0,
+       ylim = c(-0.5,7.5), xlim = c(minx, maxx), ylab = "", xlab = "", yaxt = 'n', xaxt = 'n')
+text(x = 6e-4, y = seq(7.2,0.2,-1), labels = c("S-NS-6", "S-SLP-6", "S-SLP2-6", "S-SLP3-6", "S-NS-12", "S-SLP-12", "S-SLP2-12", "S-SLP3-12"), las = 1)
 dev.off()
 

@@ -101,6 +101,10 @@ modelFormula <- paste0(cause, " ~ ", pollutant, " + dow + ns(time, df = ", df.Ti
 
 fit <- gam(as.formula(modelFormula), family = poisson, data = chic,
                na.action = na.omit)
+fitQuasi <- gam(as.formula(modelFormula), family = quasipoisson, data = chic,
+               na.action = na.omit)
+
+# Results: fit and fitQuasi give identical risk estimates, with fitQuasi having a slightly larger CI (overdispersion parameter 1.35)
 
 # autocorrelation of residuals
 resid <- fit$residuals
