@@ -7,7 +7,6 @@ by Burr, Takahara and Shin, submitted to Environmetrics, http://onlinelibrary.wi
 Uses packages:
 * gam: http://cran.r-project.org/web/packages/gam/index.html
 * multitaper: http://cran.r-project.org/web/packages/multitaper/index.html
-* gplots: http://cran.r-project.org/web/packages/gplots/index.html
 * xtable: http://cran.r-project.org/web/packages/xtable/index.html
 * MASS: http://cran.r-project.org/web/packages/MASS/index.html
 * splines: (base)
