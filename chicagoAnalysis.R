@@ -165,38 +165,43 @@ print.xtable(tab2, file = "./tables/chicagoTableB.tex")
 
 ################################################################################
 #
-#  Plot the coefficients: sets of 4 (4 combinations of response-predictor,
+#  The coefficients: sets of 4 (4 combinations of response-predictor,
 #  8 models which are similar (S1,3,5,7 or S2,4,6,8), with/without tmpd
 #  = 4 * 8 * 2 = 64 coefficients)
+#  * organized into an 8x8 data frame 'coefs'
+
+coefSet <- rbind(coefs[c(1, 7), 1:2], 
+                 coefs[c(1, 7), 3:4], 
+                 coefs[c(1, 7), 5:6], 
+                 coefs[c(1, 7), 7:8])
+
+coefCenter <- coefSet[, 1] 
+coefLeft   <- cbind(coefSet[, 1] - 2 * coefSet[, 2],
+                    coefCenter - 4e-5)
+coefRight  <- cbind(coefCenter + 4e-5, 
+                    coefSet[, 1] + 2 * coefSet[, 2])
+
+minX <- min(coefLeft); maxX <- max(coefRight) * 1.1
+yLabels <- c("Death/Ozone", "Death/PM10", "CVD/Ozone", "CVD/PM10")
+
+smootherLabels <- c("S-NS-6", "S-SLP2-12")
+smootherLabelPos <- coefRight[, 2] 
+
 #
-
-# Set 1: death ~ ozone, S1,3,5,7
-# Set 3: death ~ ozone, S2,4,6,8
-# set1 <- c(1,3,5,7)
-# set3 <- c(2,4,6,8)
-
-set1 <- c(1, 2, 3, 4)
-set3 <- c(5, 6, 7, 8)
-
-minx <- min(coefs[c(set1,set3), 1] - 2 * coefs[c(set1, set3), 2], coefs[c(set1, set3), 1] + 2 * coefs[c(set1, set3), 2])
-maxx <- 1.10 * max(coefs[c(set1, set3), 1] - 2 * coefs[c(set1, set3), 2], coefs[c(set1, set3), 1] + 2 * coefs[c(set1, set3), 2])
-
-xIn <- coefs[c(set1, set3), 1]
-xInU <- coefs[c(set1, set3), 1] + 2 * coefs[c(set1, set3), 2]
-xInL <- coefs[c(set1, set3), 1] - 2 * coefs[c(set1, set3), 2]
-
-#
-#  Figure 7
+#  Figure 7 - updated July 31, 2014
 #
 # pdf(file = "figures/chicagoDeathOzoneCI.pdf", width = 9, height = 9)
 postscript(file = "figures/fig7-chicagoDeathOzoneCI.eps", width = 9, height = 9,
            horizontal = FALSE, paper = 'special')
-par(mar = c(4,0.5,0.5,0.5))
-plotCI(x = NA, y = NA, ylim = c(-0.5,7.5), xlim = c(minx, maxx), ylab = "", xlab ="", yaxt = 'n')
+par(mar = c(4,4,0.5,0.5))
+plot(x = NA, y = NA, ylim = c(0.5,8.5), xlim = c(minX, maxX), ylab = "", xlab ="", yaxt = 'n')
 abline(v = 0, lty = 2, col = "grey60")
-par(new = TRUE)
-plotCI(x = xIn, y = c(7:0), ui = xInU, li = xInL, err = "x", lwd = 2, sfrac = 0,
-       ylim = c(-0.5,7.5), xlim = c(minx, maxx), ylab = "", xlab = "", yaxt = 'n', xaxt = 'n')
-text(x = 6e-4, y = seq(7.2,0.2,-1), labels = c("S-NS-6", "S-SLP-6", "S-SLP2-6", "S-SLP3-6", "S-NS-12", "S-SLP-12", "S-SLP2-12", "S-SLP3-12"), las = 1)
+points(coefCenter, 8:1, pch = 19)
+axis(side = 2, at = seq(7.5, 1.5, -2), labels = yLabels)
+for(j in 1:8) {
+  lines(coefLeft[j, ], rep((8-j)+1, 2))
+  lines(coefRight[j, ], rep((8-j)+1, 2))
+}
+text(x = smootherLabelPos, y = seq(8.2,1.2,-1), labels = smootherLabels)
 dev.off()
 
