@@ -10,7 +10,7 @@ Uses packages:
 * xtable: http://cran.r-project.org/web/packages/xtable/index.html
 * MASS: http://cran.r-project.org/web/packages/MASS/index.html
 * splines: (base)
-* slp: http://github.com/wesleyburr/slp/
+* slp: http://cran.r-project.org/web/packages/slp/index.html
 * NMMAPSdata: http://www.ihapss.jhsph.edu/data/NMMAPS/R/
 * tsinterp: http://github.com/wesleyburr/tsinterp/
 
