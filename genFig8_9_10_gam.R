@@ -108,20 +108,31 @@ resid.acf.old <- acf(fitOld$residuals, lag.max = 50, plot = FALSE)
 
 xaxis <- resid.acf$lag[-1]
 n <- length(xaxis)
+N <- length(resid)
 
+acfT <- resid.acf$acf[-1]
+# Classical confidence interval
+cI <- qnorm(0.975) / sqrt(N)
+
+#
 # pdf(file="figures/chicagoResidAutocorB.pdf", width=6, height=4)
+#
+#  Figure 8 - modified October 15 to add 95% confidence interval for white noise
+#
 postscript(file="figures/fig8-chicagoResidAutocorB.eps", width=6, height=4,
            horizontal = FALSE, paper = 'special')
 par(mar=c(4,4,1,1))
 plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estimate",
      xaxs = "i", xaxt = 'n', ylim = c(-0.11, 0.18))
 axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
+abline(h = c(-cI, cI), lty = 2, col = "red", lwd = 2)
 abline(h=0)
 lines(xaxis, resid.acf$acf[-1], type = "b", col = "black", lwd = 2)
 points(xaxis, resid.acf$acf[-1], pch = 19)
-lines(xaxis, resid.acf.old$acf[-1], type = "b", col = "blue", lty = 2)
-legend(x = "topright", col = c("black", "blue"), lty = c(1, 2), 
-       legend = c("Updated S-SLP2-12 Model", "Original S-NS-6 Model"))
+lines(xaxis, resid.acf.old$acf[-1], type = "b", col = "blue", lty = 3, lwd = 2)
+legend(x = "topright", col = c("black", "blue", "red"), lty = c(1, 3, 2), 
+       lwd = c(2, 2, 2), 
+       legend = c("Updated S-SLP2-12 Model", "Original S-NS-6 Model", "95% Confidence Interval for White Noise"))
 dev.off()
 
 # multitaper spectrum estimate of residuals

@@ -112,19 +112,27 @@ resid.acf <- acf(resid, lag.max=50, plot=FALSE)
 
 xaxis <- resid.acf$lag[-1]
 n <- length(xaxis)
+N <- length(resid)
+
+acfT <- resid.acf$acf[-1]
+# Classical confidence interval
+cI <- qnorm(0.975) / sqrt(N)
 
 #
-#  Generate Figure 1 of paper
+#  Generate Figure 1 of paper - modified Oct 15 to add confidence intervals
 #
 # pdf(file="figures/chicagoResidAutocor.pdf", width=6, height=4)
 postscript(file = "figures/fig1-chicagoResidAutocor.eps", width = 6, height = 4,
            horizontal = FALSE, paper = 'special')
 par(mar=c(4,4,1,1))
 plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estimate",
-     xaxs = "i", xaxt = 'n', ylim = c(-0.15, 0.18))
+     xaxs = "i", xaxt = 'n', ylim = c(-0.10, 0.16))
+abline(h = c(-cI, cI), lty = 2, col = "red", lwd = 2)
 axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
 abline(h=0)
 lines(xaxis, resid.acf$acf[-1], type = "b", col = "black", lwd = 2)
+legend(x = "topright", legend = c("Bartlett Autocorrelation Estimate", "95% Confidence Interval for White Noise"),
+       col = c("black", "red"), lty = c(1, 2), lwd = c(2, 2))
 dev.off()
 
 
