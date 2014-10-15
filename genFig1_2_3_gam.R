@@ -127,12 +127,12 @@ postscript(file = "figures/fig1-chicagoResidAutocor.eps", width = 6, height = 4,
 par(mar=c(4,4,1,1))
 plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estimate",
      xaxs = "i", xaxt = 'n', ylim = c(-0.10, 0.16))
-abline(h = c(-cI, cI), lty = 2, col = "red", lwd = 2)
 axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
+rect(1.10, -cI, n-0.05, cI, col = "grey90", border = NA)
 abline(h=0)
 lines(xaxis, resid.acf$acf[-1], type = "b", col = "black", lwd = 2)
 legend(x = "topright", legend = c("Bartlett Autocorrelation Estimate", "95% Confidence Interval for White Noise"),
-       col = c("black", "red"), lty = c(1, 2), lwd = c(2, 2))
+       fill = c("black", "grey90"))
 dev.off()
 
 
