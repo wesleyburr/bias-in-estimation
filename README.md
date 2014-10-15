@@ -7,11 +7,10 @@ by Burr, Takahara and Shin, submitted to Environmetrics, http://onlinelibrary.wi
 Uses packages:
 * gam: http://cran.r-project.org/web/packages/gam/index.html
 * multitaper: http://cran.r-project.org/web/packages/multitaper/index.html
-* gplots: http://cran.r-project.org/web/packages/gplots/index.html
 * xtable: http://cran.r-project.org/web/packages/xtable/index.html
 * MASS: http://cran.r-project.org/web/packages/MASS/index.html
 * splines: (base)
-* slp: http://github.com/wesleyburr/slp/
+* slp: http://cran.r-project.org/web/packages/slp/index.html
 * NMMAPSdata: http://www.ihapss.jhsph.edu/data/NMMAPS/R/
 * tsinterp: http://github.com/wesleyburr/tsinterp/
 
