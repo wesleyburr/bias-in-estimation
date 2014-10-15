@@ -149,13 +149,12 @@ Loaded gam 1.09.1
 > plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estimate",
 +      xaxs = "i", xaxt = 'n', ylim = c(-0.11, 0.18))
 > axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
-> abline(h = c(-cI, cI), lty = 2, col = "red", lwd = 2)
+> rect(1.10, -cI, n-0.05, cI, col = "grey90", border = NA)
 > abline(h=0)
 > lines(xaxis, resid.acf$acf[-1], type = "b", col = "black", lwd = 2)
 > points(xaxis, resid.acf$acf[-1], pch = 19)
-> lines(xaxis, resid.acf.old$acf[-1], type = "b", col = "blue", lty = 3, lwd = 2)
-> legend(x = "topright", col = c("black", "blue", "red"), lty = c(1, 3, 2), 
-+        lwd = c(2, 2, 2), 
+> lines(xaxis, resid.acf.old$acf[-1], type = "b", col = "blue", lty = 2, lwd = 2)
+> legend(x = "topright", fill = c("black", "blue", "grey90"),
 +        legend = c("Updated S-SLP2-12 Model", "Original S-NS-6 Model", "95% Confidence Interval for White Noise"))
 > dev.off()
 null device 
@@ -200,9 +199,9 @@ null device
 > plot(timeAxis, resid, type="l", col="grey80", ylim=c(-0.3,0.5), 
 +      xlab="Time in Years", ylab="Residuals in log(ppb)", xaxs="i", xaxt = 'n')
 > axis(side = 1, at = yrs, labels = c(1987, "", "", 1990, "", 1992, "", 1994, "", 1996, "", 1998, "", 2000))
-> lines(timeAxis, resid.old.low, lwd = 2, lty = 1, type = "l", col = "grey50")
+> lines(timeAxis, resid.old.low, lwd = 3, lty = 1, type = "l", col = "grey50")
 > lines(timeAxis, resid.low, lwd=3)
-> legend(x = "topright", lty = c(1, 1, 1), lwd = c(2, 2, 3), col = c("grey80", "grey50", "black"),
+> legend(x = "topright", lty = c(1, 1, 1), lwd = c(2, 3, 3), col = c("grey80", "grey50", "black"),
 +        legend = c("Residuals", "Long Time-scale Residuals (Model 2)", "Long Time-scale Residuals (Model 9)"))
 > dev.off()
 null device 
@@ -211,4 +210,4 @@ null device
 > 
 > proc.time()
    user  system elapsed 
-  3.032   0.156   3.183 
+  3.326   0.192   3.510 

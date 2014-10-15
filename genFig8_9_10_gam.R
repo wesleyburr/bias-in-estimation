@@ -171,9 +171,9 @@ par(mar=c(4,4,1,1))
 plot(timeAxis, resid, type="l", col="grey80", ylim=c(-0.3,0.5), 
      xlab="Time in Years", ylab="Residuals in log(ppb)", xaxs="i", xaxt = 'n')
 axis(side = 1, at = yrs, labels = c(1987, "", "", 1990, "", 1992, "", 1994, "", 1996, "", 1998, "", 2000))
-lines(timeAxis, resid.old.low, lwd = 2, lty = 1, type = "l", col = "grey50")
+lines(timeAxis, resid.old.low, lwd = 3, lty = 1, type = "l", col = "grey50")
 lines(timeAxis, resid.low, lwd=3)
-legend(x = "topright", lty = c(1, 1, 1), lwd = c(2, 2, 3), col = c("grey80", "grey50", "black"),
+legend(x = "topright", lty = c(1, 1, 1), lwd = c(2, 3, 3), col = c("grey80", "grey50", "black"),
        legend = c("Residuals", "Long Time-scale Residuals (Model 2)", "Long Time-scale Residuals (Model 9)"))
 dev.off()
 
