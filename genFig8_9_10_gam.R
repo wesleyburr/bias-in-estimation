@@ -127,11 +127,17 @@ plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estim
 axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
 rect(1.10, -cI, n-0.05, cI, col = "grey90", border = NA)
 abline(h=0)
-lines(xaxis, resid.acf$acf[-1], type = "b", col = "black", lwd = 2)
-points(xaxis, resid.acf$acf[-1], pch = 19)
-lines(xaxis, resid.acf.old$acf[-1], type = "b", col = "blue", lty = 2, lwd = 2)
-legend(x = "topright", fill = c("black", "blue", "grey90"),
-       legend = c("Updated S-SLP2-12 Model", "Original S-NS-6 Model", "95% Confidence Interval for White Noise"))
+lines(xaxis, resid.acf$acf[-1], type = "l", col = "black", lwd = 2)
+points(xaxis, resid.acf$acf[-1], pch = 18) 
+lines(xaxis, resid.acf.old$acf[-1], type = "l", col = "blue", lty = 2, lwd = 2)
+points(xaxis, resid.acf.old$acf[-1], pch = 19, col = "blue")
+legend(x = "topright", legend = c("Updated S-SLP2-12 Model", "Original S-NS-6 Model", "95% Confidence Interval for White Noise"),
+       bty = 'n', col = c("black", "blue", "grey90"),
+       lty = c(1, 2, 0), 
+       lwd = c(2, 2, 0), 
+       pch = c(18, 19, 15),
+       pt.bg = c("black", "blue", "grey90"),
+       pt.cex = c(1.5, 1.5, 3))
 dev.off()
 
 # multitaper spectrum estimate of residuals

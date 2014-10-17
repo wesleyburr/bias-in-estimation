@@ -130,8 +130,9 @@ plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estim
 axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
 rect(1.10, -cI, n-0.05, cI, col = "grey90", border = NA)
 abline(h=0)
-lines(xaxis, resid.acf$acf[-1], type = "b", col = "black", lwd = 2)
-legend(x = "topright", legend = c("Bartlett Autocorrelation Estimate", "95% Confidence Interval for White Noise"),
+lines(xaxis, resid.acf$acf[-1], type = "l", col = "black", lwd = 2)
+points(xaxis, resid.acf$acf[-1], lwd = 2, pch = 19)
+legend(x = "topright", legend = c("Autocorrelation Estimate", "95% Confidence Interval for White Noise"),
        fill = c("black", "grey90"))
 dev.off()
 

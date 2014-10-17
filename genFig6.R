@@ -31,9 +31,9 @@ postscript(file = "figures/fig6-gibbsRipples.eps", width = 6, height = 4,
 par(mar = c(4,4,0.5,0.5))
 plot(1:N, oneV, type = "l", lwd = 2, lty = 3, xlab = "Time", ylab = "Magnitude", ylim = c(0.75, pMax))
 lines(1:N, oneP1, lwd = 3, lty = 1, col = "black")
-lines(1:N, oneP2, lwd = 1.5, lty = 1, col = "blue")
-text(x = c(170, 450), y = c(0.85, 1.15), pos = 4, labels = c("Projection onto S-NS-6 (18)", "Projection onto S-SLP-6 (18)"),
-     col = c("black", "blue"))
+lines(1:N, oneP2, lwd = 1.5, lty = 2, col = "blue")
+legend(x = "top", legend = c("Projection onto S-NS-6", "Projection onto S-SLP-6"),
+       lty = c(1, 2), lwd = c(3, 1.5), col = c("black", "blue"))
 dev.off()
 
 
