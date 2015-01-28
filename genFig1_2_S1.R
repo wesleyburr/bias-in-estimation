@@ -147,7 +147,7 @@ cI <- qnorm(0.975) / sqrt(N)
 #
 #  Figure 1 - modified January 26 to be the old figure 8, modified; compression of figures 1 and 8 together.
 #
-postscript(file="figures/fig1-chicagoResidAutocor.eps", width=6, height=4,
+postscript(file="figures/fig1-chicagoResidAutocor.eps", width=6, height=3.7,
            horizontal = FALSE, paper = 'special', family = "CM Sans", pointsize = 9)
 par(mar=c(4,4,1,1))
 plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estimate",
