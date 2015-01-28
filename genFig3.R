@@ -1,10 +1,13 @@
 #
-#  Generate Figure 4 for paper
+#  Generate Figure 3 for paper
 #
 
 library("multitaper")
 library("splines")
 library("MASS")
+library("extrafont")
+loadfonts(device = "postscript")
+loadfonts()
 
 # 10 years of data, approximately
 time <- 1:3650
@@ -53,11 +56,11 @@ yAxisP <- 10^(seq(-15, 1, 1))
 yAxisL <- c(paste0("1e-", 15:1), "1e0", "1e1")
 
 #
-#  Generate Figure 4
+#  Generate Figure 3
 #
 # pdf(file="figures/transferFuncCubic.pdf",width=6,height=5)
-postscript(file="figures/fig4-transferFuncCubic.eps", width=6, height=5,
-           horizontal = FALSE, paper = 'special')
+postscript(file="figures/fig3-transferFuncCubic.eps", width=6, height=4,
+           horizontal = FALSE, paper = 'special', family = "CM Sans", pointsize = 9)
 par(mar=c(4,4,4,0.5))
 plot(freqs, tf, type="l", col="black", lwd=2, log="y", xlim=c(0,20),
      ylim=c(1e-14,1.1e0), xlab="Frequency in Cycles/Year", 
@@ -69,7 +72,31 @@ axis(side = 3, line = 0, at = atPerLab, labels = PerLab)
 axis(side = 2, line = 0, at = yAxisP, labels = yAxisL)
 axis(side = 1, line = 0, at = PerLab, labels = PerLab)
 mtext("Period in Days", side = 3, line = 2)
-text(x = c(1, 1, 1, 10, 6.1), y = c(1e-9, 1e-10, 1e-11, 1e-5, 1e-1), 
-     labels = c("Mean TF of", "Basis Vectors", "1-58", "Mean Simulated White Noise TF", "Ideal TF"),
-     col = c("black", "black", "black", "grey60", "red"), pos = 4)
+legend(x = "topright", lty = c(1,1,2), col = c("black", "grey60", "red"),
+       legend = c("Mean T.F. of Basis Vectors 1-58",
+                  "Mean T.F. on Simulated White Noise",
+                  "Ideal T.F."),
+       lwd = c(2, 2, 2))
 dev.off()
+
+pdf(file="figures/fig3-transferFuncCubic.pdf", width=6, height=4,
+         paper = 'special', family = "CM Sans", pointsize = 9)
+par(mar=c(4,4,4,0.5))
+plot(freqs, tf, type="l", col="black", lwd=2, log="y", xlim=c(0,20),
+     ylim=c(1e-14,1.1e0), xlab="Frequency in Cycles/Year", 
+     ylab="Magnitude Transfer Functions (TFs)",
+     xaxs = "i", xaxt='n', yaxt = 'n')
+lines(freqs, theory, type="l", col="red", lty=2, lwd=2)
+lines(freqs, tf2, type = "l", col = "grey60", lwd = 2)
+axis(side = 3, line = 0, at = atPerLab, labels = PerLab)
+axis(side = 2, line = 0, at = yAxisP, labels = yAxisL)
+axis(side = 1, line = 0, at = PerLab, labels = PerLab)
+mtext("Period in Days", side = 3, line = 2)
+legend(x = "topright", lty = c(1,1,2), col = c("black", "grey60", "red"),
+       legend = c("Mean T.F. of Basis Vectors 1-58",
+                  "Mean T.F. on Simulated White Noise",
+                  "Ideal T.F."),
+       lwd = c(2, 2, 2))
+dev.off()
+embed_fonts("figures/fig3-transferFuncCubic.pdf", outfile = "figures/fig3-transferFuncCubic_embed.pdf")
+

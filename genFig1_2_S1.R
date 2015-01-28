@@ -6,6 +6,17 @@
 #
 #   Last modified: January 27, 2015
 #
+#   * notes for publication
+#   * rendered PDF version of journal uses 11 pt CMbright (Computer Modern)
+#   * so we use CM Sans font, 11 pt, true-size graphics, OR
+#   * a 6.0in figure fits nicely in the page width of the journal, so we will
+#     use package "extrafont" and "fontcm" to get access to Computer Modern Sans
+#     for use in our figures, making them true-to-size at 6in, 11points
+# 
+#   * for some reason (unknown), generating a true-to-size PDF at 6 inches with
+#     pointsize = 11 results in text that is too big. Replaced with pointsize = 9
+#     as the best integer approximation.
+#
 ################################################################################
 
 ################################################################################
@@ -73,6 +84,9 @@ for(j in 1:8) {
 
 library("gam")
 library("multitaper")      
+library("extrafont")
+loadfonts(device = "postscript")
+loadfonts()
 
 #  Code to interpolate PM10 missing values to allow for spectrum estimation
 #
@@ -134,7 +148,7 @@ cI <- qnorm(0.975) / sqrt(N)
 #  Figure 1 - modified January 26 to be the old figure 8, modified; compression of figures 1 and 8 together.
 #
 postscript(file="figures/fig1-chicagoResidAutocor.eps", width=6, height=4,
-           horizontal = FALSE, paper = 'special')
+           horizontal = FALSE, paper = 'special', family = "CM Sans", pointsize = 9)
 par(mar=c(4,4,1,1))
 plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estimate",
      xaxs = "i", xaxt = 'n', ylim = c(-0.10, 0.15))
@@ -145,17 +159,42 @@ lines(xaxis, resid.acf$acf[-1], type = "l", col = "black", lwd = 2)
 points(xaxis, resid.acf$acf[-1], pch = 18) 
 lines(xaxis, resid.acf.old$acf[-1], type = "l", col = "grey30", lty = 2, lwd = 2)
 points(xaxis, resid.acf.old$acf[-1], pch = 19, col = "grey30")
-legend(x = "topright", legend = c("Model 2 - S-NS-6 Model", "Model 9 - S-SLP2-12 Model", "95% Confidence Interval for White Noise"),
-       bty = 'n', col = c("grey30", "black", "grey90"),
+legend(x = "topright", legend = c("Model 2 - S-NS-6 Model", "Model 9 - S-SLP2-12 Model", 
+       "95% Confidence Interval \n for White Noise"),
+       col = c("grey30", "black", "grey90"),
        lty = c(1, 2, 0), 
        lwd = c(2, 2, 0), 
        pch = c(18, 19, 15),
-       pt.bg = c("black", "grey30", "grey80"),
-       pt.cex = c(1.5, 1.5, 3))
+       pt.bg = c("black", "grey30", "grey90"),
+       pt.cex = c(1, 1, 1),
+       cex = 1)
 dev.off()
 
-# multitaper spectrum estimate of residuals
+pdf(file="figures/fig1-chicagoResidAutocor.pdf", width=6, height=4,
+    paper = 'special', family = "CM Sans", pointsize = 9)
+par(mar=c(4,4,1,1))
+plot(xaxis, rep(NA, n), xlab = "Time Lag in Days", ylab = "Autocorrelation Estimate",
+     xaxs = "i", xaxt = 'n', ylim = c(-0.10, 0.15))
+axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
+rect(1.10, -cI, n-0.05, cI, col = "grey90", border = NA)
+abline(h=0)
+lines(xaxis, resid.acf$acf[-1], type = "l", col = "black", lwd = 2)
+points(xaxis, resid.acf$acf[-1], pch = 18) 
+lines(xaxis, resid.acf.old$acf[-1], type = "l", col = "grey30", lty = 2, lwd = 2)
+points(xaxis, resid.acf.old$acf[-1], pch = 19, col = "grey30")
+legend(x = "topright", legend = c("Model 2 - S-NS-6 Model", "Model 9 - S-SLP2-12 Model", 
+       "95% Confidence Interval \n for White Noise"),
+       col = c("grey30", "black", "grey90"),
+       lty = c(1, 2, 0), 
+       lwd = c(2, 2, 0), 
+       pch = c(18, 19, 15),
+       pt.bg = c("black", "grey30", "grey90"),
+       pt.cex = c(1, 1, 3), cex = 1)
+dev.off()
+embed_fonts("figures/fig1-chicagoResidAutocor.pdf", outfile = "figures/fig1-chicagoResidAutocor_embed.pdf")
 
+
+# multitaper spectrum estimate of residuals
 resid <- fit$residuals
 resid.sp <- spec.mtm(resid, deltat=60*60*24, nw=4, k=7, plot=FALSE)  # default units: Hz, cycles/second
 resid.Old <- fitOld$residuals
@@ -166,8 +205,8 @@ axisFreq <- 1/(axisPeriod * 86400) # frequencies in Hz from those periods
 axisFreq2 <- c(1:10,15,20,30,40,50)
 
 # pdf(file="figures/fig2-chicagoResidSpectrum.pdf", width=6, height=6)
-postscript(file="figures/fig2-chicagoResidSpectrum.eps", width=6, height=6,
-           horizontal = FALSE, paper = 'special')
+postscript(file="figures/fig2-chicagoResidSpectrum.eps", width=9, height=7,
+           horizontal = FALSE, paper = 'special', family = "CM Sans")
 par(mar=c(4,4,4,1))
 yLabExp <- expression(paste("Power Spectrum in ppb"^2, "/(cycle/year)", sep = ""))
 plot(resid.Old.sp$freq, resid.Old.sp$spec, type="l", log="y", xlab="Frequency in cycles/year", ylab="", 
@@ -179,10 +218,29 @@ axis(side=3, at=axisFreq, labels=labelPeriod)
 mtext(side = 3, line = 2.5, "Period in Days")
 axis(side=2, at=c(1,2,5,10,20,50,100,200,500,1000,2000,5000,10000),
      labels = c(1,2,5,"1e1","2e1","5e1","1e2","2e2","5e2","1e3","2e3","5e3","1e4"))
-abline(v=1/(60.9*86400), col="blue", lty=3, lwd = 2.5)
-legend(x = "bottomright", lty = c(1, 2, 3), lwd = c(2,2,2.5), col = c("grey40", "black", "blue"), 
+abline(v=1/(60.9*86400), col="red", lty=3, lwd = 2.5)
+legend(x = "bottomright", lty = c(2, 1, 3), lwd = c(2,2,2.5), col = c("grey40", "black", "red"), 
        legend = c("Model 2 - S-NS-6", "Model 9 - S-SLP2-12", "Ideal Band-Edge at 6 cycles/year"))
 dev.off()
+
+pdf(file="figures/fig2-chicagoResidSpectrum.pdf", width=6, height=4,
+    paper = 'special', family = "CM Sans", pointsize = 9)
+par(mar=c(4,4,4,1))
+yLabExp <- expression(paste("Power Spectrum in ppb"^2, "/(cycle/year)", sep = ""))
+plot(resid.Old.sp$freq, resid.Old.sp$spec, type="l", log="y", xlab="Frequency in cycles/year", ylab="", 
+     xaxs="i", xlim=c(0, 1/(14*86400)), yaxt = 'n', xaxt = 'n', lwd = 2, col = "grey40", lty = 2)
+lines(resid.sp$freq, resid.sp$spec, type="l", lwd=2, col = "black")
+mtext(side=2, line=2.5, yLabExp)
+axis(side=1, at=1 / ((365.2425 * 86400) / axisFreq2), labels=axisFreq2)
+axis(side=3, at=axisFreq, labels=labelPeriod)
+mtext(side = 3, line = 2.5, "Period in Days")
+axis(side=2, at=c(1,2,5,10,20,50,100,200,500,1000,2000,5000,10000),
+     labels = c(1,2,5,"1e1","2e1","5e1","1e2","2e2","5e2","1e3","2e3","5e3","1e4"))
+abline(v=1/(60.9*86400), col="red", lty=3, lwd = 2.5)
+legend(x = "bottomright", lty = c(2, 1, 3), lwd = c(2,2,2.5), col = c("grey40", "black", "red"), 
+       legend = c("Model 2 - S-NS-6", "Model 9 - S-SLP2-12", "Ideal Band-Edge at 6 cycles/year"))
+dev.off()
+embed_fonts("figures/fig2-chicagoResidSpectrum.pdf", outfile = "figures/fig2-chicagoResidSpectrum_embed.pdf")
 
 # time domain representation
 resid.low <- dpssFiltNA(N=length(resid), w=6/365.2425, xd=resid)
@@ -191,7 +249,7 @@ yrs <- ISOdate(seq(1987, 2000, 1), rep(1, 8), rep(1, 8))
 
 # pdf(file="figures/figSupp1-chicagoResidTimeDomain.pdf", width=6, height=4)
 postscript(file="figures/figSupp1-chicagoResidTimeDomain.eps", width=6, height=4,
-           horizontal = FALSE, paper = 'special')
+           horizontal = FALSE, paper = 'special', family = "CM Sans", pointsize = 9)
 par(mar=c(4,4,1,1))
 plot(timeAxis, resid, type="l", col="grey80", ylim=c(-0.3,0.5), 
      xlab="Time in Years", ylab="Residuals in log(ppb)", xaxs="i", xaxt = 'n')
@@ -201,4 +259,18 @@ lines(timeAxis, resid.low, lwd=3)
 legend(x = "topright", lty = c(1, 1, 1), lwd = c(2, 3, 3), col = c("grey80", "grey50", "black"),
        legend = c("Residuals", "Model 2 - Long Time-scale Residuals", "Model 9 - Long Time-scale Residuals"))
 dev.off()
+
+pdf(file="figures/figSupp1-chicagoResidTimeDomain.pdf", width=6, height=4,
+    paper = 'special', family = "CM Sans", pointsize = 9)
+par(mar=c(4,4,1,1))
+plot(timeAxis, resid, type="l", col="grey80", ylim=c(-0.3,0.5), 
+     xlab="Time in Years", ylab="Residuals in log(ppb)", xaxs="i", xaxt = 'n')
+axis(side = 1, at = yrs, labels = c(1987, "", "", 1990, "", 1992, "", 1994, "", 1996, "", 1998, "", 2000))
+lines(timeAxis, resid.old.low, lwd = 3, lty = 1, type = "l", col = "grey50")
+lines(timeAxis, resid.low, lwd=3)
+legend(x = "topright", lty = c(1, 1, 1), lwd = c(2, 3, 3), col = c("grey80", "grey50", "black"),
+       legend = c("Residuals", "Model 2 - Long Time-scale Residuals", "Model 9 - Long Time-scale Residuals"))
+dev.off()
+embed_fonts("figures/figSupp1-chicagoResidTimeDomain.pdf", outfile = "figures/figSupp1-chicagoResidTimeDomain_embed.pdf")
+
 

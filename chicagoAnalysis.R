@@ -14,6 +14,10 @@ library("gam")
 library("slp")
 library("gplots")
 library("xtable")
+library("extrafont")
+loadfonts(device = "postscript")
+loadfonts()
+
 
 load("./data/chic.RData")
 
@@ -181,27 +185,43 @@ coefLeft   <- cbind(coefSet[, 1] - 2 * coefSet[, 2],
 coefRight  <- cbind(coefCenter + 4e-5, 
                     coefSet[, 1] + 2 * coefSet[, 2])
 
-minX <- min(coefLeft); maxX <- max(coefRight) * 1.1
-yLabels <- c("Death/Ozone", "Death/PM10", "CVD/Ozone", "CVD/PM10")
+minX <- min(coefLeft); maxX <- max(coefRight) 
+yLabels <- c("Death &\nOzone", "Death &\nPM10", "CVD &\nOzone", "CVD &\nPM10")
 
 smootherLabels <- c("S-NS-6", "S-SLP2-12")
-smootherLabelPos <- coefRight[, 2] 
+smootherLabelPos <- 0.9*coefRight[, 2] 
 
 #
 #  Figure 5 - updated Jan 27, 2015
 #
-# pdf(file = "figures/fig5-chicagoDeathOzoneCI.pdf", width = 9, height = 9)
-postscript(file = "figures/fig5-chicagoDeathOzoneCI.eps", width = 9, height = 9,
-           horizontal = FALSE, paper = 'special')
-par(mar = c(4,4,0.5,0.5))
-plot(x = NA, y = NA, ylim = c(0.5,8.5), xlim = c(minX, maxX), ylab = "", xlab ="", yaxt = 'n')
+postscript(file = "figures/fig5-chicagoDeathOzoneCI.eps", width = 6, height = 4,
+           horizontal = FALSE, paper = 'special', family = "CM Sans", pointsize = 9)
+par(mar = c(4,3,0.5,0.5))
+plot(x = NA, y = NA, ylim = c(0.25,4.25), xlim = c(minX, maxX), ylab = "", 
+     xlab ="Magnitude of Coefficient", yaxt = 'n')
 abline(v = 0, lty = 2, col = "grey60")
-points(coefCenter, 8:1, pch = 19)
-axis(side = 2, at = seq(7.5, 1.5, -2), labels = yLabels)
+points(coefCenter, seq(4, 0.5, -0.5), pch = 19)
+axis(side = 2, at = seq(3.75, 0.75, -1), labels = yLabels)
 for(j in 1:8) {
-  lines(coefLeft[j, ], rep((8-j)+1, 2))
-  lines(coefRight[j, ], rep((8-j)+1, 2))
+  lines(coefLeft[j, ], rep((4.5-0.5*j), 2))
+  lines(coefRight[j, ], rep((4.5-0.5*j), 2))
 }
-text(x = smootherLabelPos, y = seq(8.2,1.2,-1), labels = smootherLabels)
+text(x = smootherLabelPos, y = seq(4.15,0.65,-0.5), labels = smootherLabels)
 dev.off()
+
+pdf(file = "figures/fig5-chicagoDeathOzoneCI.pdf", width = 6, height = 4,
+      paper = 'special', family = "CM Sans", pointsize = 9)
+par(mar = c(4,3,0.5,0.5))
+plot(x = NA, y = NA, ylim = c(0.25,4.25), xlim = c(minX, maxX), ylab = "", 
+     xlab ="Magnitude of Coefficient", yaxt = 'n')
+abline(v = 0, lty = 2, col = "grey60")
+points(coefCenter, seq(4, 0.5, -0.5), pch = 19)
+axis(side = 2, at = seq(3.75, 0.75, -1), labels = yLabels)
+for(j in 1:8) {
+  lines(coefLeft[j, ], rep((4.5-0.5*j), 2))
+  lines(coefRight[j, ], rep((4.5-0.5*j), 2))
+}
+text(x = smootherLabelPos, y = seq(4.15,0.65,-0.5), labels = smootherLabels)
+dev.off()
+embed_fonts("figures/fig5-chicagoDeathOzoneCI.pdf", outfile = "figures/fig5-chicagoDeathOzoneCI_embed.pdf")
 
