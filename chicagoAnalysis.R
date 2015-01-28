@@ -7,7 +7,7 @@
 #  records (cvd, death) from the NMMAPSdata package for the city. Pollutants 
 #  used are pm10tmean and o3tmean, both lag-0 -- just for ease of analysis
 #
-#  Generates Figure 7 for paper, as well as results in Table 4
+#  Generates Figure 5 for paper, as well as results in Table 2
 #
 #  
 library("gam")
@@ -188,10 +188,10 @@ smootherLabels <- c("S-NS-6", "S-SLP2-12")
 smootherLabelPos <- coefRight[, 2] 
 
 #
-#  Figure 7 - updated July 31, 2014
+#  Figure 5 - updated Jan 27, 2015
 #
-# pdf(file = "figures/chicagoDeathOzoneCI.pdf", width = 9, height = 9)
-postscript(file = "figures/fig7-chicagoDeathOzoneCI.eps", width = 9, height = 9,
+# pdf(file = "figures/fig5-chicagoDeathOzoneCI.pdf", width = 9, height = 9)
+postscript(file = "figures/fig5-chicagoDeathOzoneCI.eps", width = 9, height = 9,
            horizontal = FALSE, paper = 'special')
 par(mar = c(4,4,0.5,0.5))
 plot(x = NA, y = NA, ylim = c(0.5,8.5), xlim = c(minX, maxX), ylab = "", xlab ="", yaxt = 'n')

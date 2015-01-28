@@ -14,17 +14,16 @@ Uses packages:
 * NMMAPSdata: http://www.ihapss.jhsph.edu/data/NMMAPS/R/
 * tsinterp: http://github.com/wesleyburr/tsinterp/
 
-To re-generate the tables and figures of the paper, using saved objects
+To re-generate the tables and figures of the paper and supplement, using saved objects
 (minimal time commitment), run:
 
 ````
-> source("genFig1_2_3_gam.R")
+> source("genFig1_2_S1.R")
+> source("genFig3.R")
 > source("genFig4.R")
-> source("genFig5.R")
-> source("genFig6.R")
 > source("analyzeSims.R")
 > source("chicagoAnalysis.R")
-> source("genFig8_9_10_gam.R")
+> source("genFigS2.R")
 ````
 
 In addition, code to re-create the basis objects is contained in several

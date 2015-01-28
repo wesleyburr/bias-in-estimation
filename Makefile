@@ -14,13 +14,12 @@ setupNix:
 all: 
 	rm -vf ./figures/*.eps 
 	rm -vf ./tables/*.tex
-	R CMD BATCH genFig1_2_3_gam.R 
+	R CMD BATCH genFig1_2_S1.R 
+	R CMD BATCH genFig3.R 
 	R CMD BATCH genFig4.R 
-	R CMD BATCH genFig5.R 
-	R CMD BATCH genFig6.R 
-	R CMD BATCH genFig8_9_10_gam.R 
 	R CMD BATCH chicagoAnalysis.R     # saves two tables to ./tables/, one figure to ./figures
 	R CMD BATCH analyzeSims.R         # saves four tables to ./tables
+	R CMD BATCH genFigS2.R
 	rm -vf *.Rout .RData
 
 #  If you want to verify the realizations of the simulations 
