@@ -66,13 +66,13 @@ plot(freqs, tf, type="l", col="black", lwd=2, log="y", xlim=c(0,20),
      ylim=c(1e-14,1.1e0), xlab="Frequency in Cycles/Year", 
      ylab="Magnitude Transfer Functions (TFs)",
      xaxs = "i", xaxt='n', yaxt = 'n')
-lines(freqs, theory, type="l", col="red", lty=2, lwd=2)
+lines(freqs, theory, type="l", col="blue", lty=2, lwd=2)
 lines(freqs, tf2, type = "l", col = "grey60", lwd = 2)
 axis(side = 3, line = 0, at = atPerLab, labels = PerLab)
 axis(side = 2, line = 0, at = yAxisP, labels = yAxisL)
 axis(side = 1, line = 0, at = PerLab, labels = PerLab)
 mtext("Period in Days", side = 3, line = 2)
-legend(x = "topright", lty = c(1,1,2), col = c("black", "grey60", "red"),
+legend(x = "topright", lty = c(1,1,2), col = c("black", "grey60", "blue"),
        legend = c("Mean T.F. of Basis Vectors 1-58",
                   "Mean T.F. on Simulated White Noise",
                   "Ideal T.F."),
@@ -86,13 +86,13 @@ plot(freqs, tf, type="l", col="black", lwd=2, log="y", xlim=c(0,20),
      ylim=c(1e-14,1.1e0), xlab="Frequency in Cycles/Year", 
      ylab="Magnitude Transfer Functions (TFs)",
      xaxs = "i", xaxt='n', yaxt = 'n')
-lines(freqs, theory, type="l", col="red", lty=2, lwd=2)
+lines(freqs, theory, type="l", col="blue", lty=2, lwd=2)
 lines(freqs, tf2, type = "l", col = "grey60", lwd = 2)
 axis(side = 3, line = 0, at = atPerLab, labels = PerLab)
 axis(side = 2, line = 0, at = yAxisP, labels = yAxisL)
 axis(side = 1, line = 0, at = PerLab, labels = PerLab)
 mtext("Period in Days", side = 3, line = 2)
-legend(x = "topright", lty = c(1,1,2), col = c("black", "grey60", "red"),
+legend(x = "topright", lty = c(1,1,2), col = c("black", "grey60", "blue"),
        legend = c("Mean T.F. of Basis Vectors 1-58",
                   "Mean T.F. on Simulated White Noise",
                   "Ideal T.F."),

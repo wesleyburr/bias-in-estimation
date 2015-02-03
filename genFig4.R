@@ -81,7 +81,7 @@ yAxisL <- c("1e-15", "1e-14", "1e-13", "1e-12","1e-11","1e-10","1e-9","1e-8","1e
 postscript(file="figures/fig4-compareTransferFunctAll.eps", width=9, height=7,
            horizontal = FALSE, paper = 'special', family = "CM Sans", pointsize = 9)
 par(mar=c(4,4,4,0.5))
-plot(freqs, theory, type="l", col="red", lwd=2, lty = 3, log="y", xlim=c(0,20),
+plot(freqs, theory, type="l", col="blue", lwd=2, lty = 3, log="y", xlim=c(0,20),
      ylim=c(1e-14,1.1e0), xlab="Frequency in Cycles/Year", ylab="Magnitude Transfer Functions (TFs)",
      xaxt = 'n', yaxt = 'n', xaxs = "i")
 lines(freqs, tfNS60,   type = "l", col = "black",  lwd = 2)
@@ -94,7 +94,7 @@ axis(side = 2, line = 0, at = yAxisP, labels = yAxisL)
 axis(side = 1, line = 0, at = PerLab, labels = PerLab)
 mtext("Period in Days", side = 3, line = 2)
 
-legend(x = "topright", lty = c(1,2,1,2, 3), col = c("grey60", "grey60", "black", "black", "red"),
+legend(x = "topright", lty = c(1,2,1,2, 3), col = c("grey60", "grey60", "black", "black", "blue"),
        legend = c("S-SLP-6 (60)", "S-SLP-12 (120)", "S-NS-6 (60)", "S-NS-12 (120)", "Ideal"),
        lwd = c(2, 2, 2, 2, 2))
 dev.off()
@@ -102,7 +102,7 @@ dev.off()
 pdf(file="figures/fig4-compareTransferFunctAll.pdf", width=6, height=4,
            paper = 'special', family = "CM Sans", pointsize = 9)
 par(mar=c(4,4,4,0.5))
-plot(freqs, theory, type="l", col="red", lwd=2, lty = 3, log="y", xlim=c(0,20),
+plot(freqs, theory, type="l", col="blue", lwd=2, lty = 3, log="y", xlim=c(0,20),
      ylim=c(1e-14,1.1e0), xlab="Frequency in Cycles/Year", ylab="Magnitude Transfer Functions (TFs)",
      xaxt = 'n', yaxt = 'n', xaxs = "i")
 lines(freqs, tfNS60,   type = "l", col = "black",  lwd = 2)
@@ -115,7 +115,7 @@ axis(side = 2, line = 0, at = yAxisP, labels = yAxisL)
 axis(side = 1, line = 0, at = PerLab, labels = PerLab)
 mtext("Period in Days", side = 3, line = 2)
 
-legend(x = "topright", lty = c(1,2,1,2, 3), col = c("grey60", "grey60", "black", "black", "red"),
+legend(x = "topright", lty = c(1,2,1,2, 3), col = c("grey60", "grey60", "black", "black", "blue"),
        legend = c("S-SLP-6 (60)", "S-SLP-12 (120)", "S-NS-6 (60)", "S-NS-12 (120)", "Ideal"),
        lwd = c(2, 2, 2, 2, 2))
 dev.off()
