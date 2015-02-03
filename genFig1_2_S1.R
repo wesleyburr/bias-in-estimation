@@ -156,17 +156,17 @@ axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
 rect(1.10, -cI, n-0.05, cI, col = "grey90", border = NA)
 abline(h=0)
 lines(xaxis, resid.acf$acf[-1], type = "l", col = "black", lwd = 2)
-points(xaxis, resid.acf$acf[-1], pch = 18) 
+points(xaxis, resid.acf$acf[-1], pch = 23, col = "black", bg = "black") 
 lines(xaxis, resid.acf.old$acf[-1], type = "l", col = "grey30", lty = 2, lwd = 2)
 points(xaxis, resid.acf.old$acf[-1], pch = 19, col = "grey30")
-legend(x = "topright", legend = c("Model 2 - S-NS-6 Model", "Model 9 - S-SLP2-12 Model", 
+legend(x = "topright", legend = c("Model 2 - S-NS-6 Model", "Model 8 - S-SLP2-12 Model", 
        "95% Confidence Interval \n for White Noise"),
        col = c("grey30", "black", "grey90"),
-       lty = c(1, 2, 0), 
+       lty = c(2, 1, 0), 
        lwd = c(2, 2, 0), 
-       pch = c(18, 19, 15),
-       pt.bg = c("black", "grey30", "grey90"),
-       pt.cex = c(1, 1, 1),
+       pch = c(19, 23, 15),
+       pt.bg = c("grey30", "black", "grey90"),
+       pt.cex = c(1, 1, 2),
        cex = 1)
 dev.off()
 
@@ -179,17 +179,18 @@ axis(side = 1, at = c(1,5,10,20,30,40,50), labels = c(1,5,10,20,30,40,50))
 rect(1.10, -cI, n-0.05, cI, col = "grey90", border = NA)
 abline(h=0)
 lines(xaxis, resid.acf$acf[-1], type = "l", col = "black", lwd = 2)
-points(xaxis, resid.acf$acf[-1], pch = 18) 
+points(xaxis, resid.acf$acf[-1], pch = 23, col = "black", bg = "black") 
 lines(xaxis, resid.acf.old$acf[-1], type = "l", col = "grey30", lty = 2, lwd = 2)
 points(xaxis, resid.acf.old$acf[-1], pch = 19, col = "grey30")
-legend(x = "topright", legend = c("Model 2 - S-NS-6 Model", "Model 9 - S-SLP2-12 Model", 
+legend(x = "topright", legend = c("Model 2 - S-NS-6 Model", "Model 8 - S-SLP2-12 Model", 
        "95% Confidence Interval \n for White Noise"),
        col = c("grey30", "black", "grey90"),
-       lty = c(1, 2, 0), 
+       lty = c(2, 1, 0), 
        lwd = c(2, 2, 0), 
-       pch = c(18, 19, 15),
-       pt.bg = c("black", "grey30", "grey90"),
-       pt.cex = c(1, 1, 3), cex = 1)
+       pch = c(19, 23, 15),
+       pt.bg = c("grey30", "black", "grey90"),
+       pt.cex = c(1, 1, 2),
+       cex = 1)
 dev.off()
 embed_fonts("figures/fig1-chicagoResidAutocor.pdf", outfile = "figures/fig1-chicagoResidAutocor_embed.pdf")
 
@@ -218,9 +219,9 @@ axis(side=3, at=axisFreq, labels=labelPeriod)
 mtext(side = 3, line = 2.5, "Period in Days")
 axis(side=2, at=c(1,2,5,10,20,50,100,200,500,1000,2000,5000,10000),
      labels = c(1,2,5,"1e1","2e1","5e1","1e2","2e2","5e2","1e3","2e3","5e3","1e4"))
-abline(v=1/(60.9*86400), col="red", lty=3, lwd = 2.5)
-legend(x = "bottomright", lty = c(2, 1, 3), lwd = c(2,2,2.5), col = c("grey40", "black", "red"), 
-       legend = c("Model 2 - S-NS-6", "Model 9 - S-SLP2-12", "Ideal Band-Edge at 6 cycles/year"))
+abline(v=1/(60.9*86400), col="blue", lty=3, lwd = 2.5)
+legend(x = "bottomright", lty = c(2, 1, 3), lwd = c(2,2,2.5), col = c("grey40", "black", "blue"), 
+       legend = c("Model 2 - S-NS-6", "Model 8 - S-SLP2-12", "Ideal Band-Edge at 6 cycles/year"))
 dev.off()
 
 pdf(file="figures/fig2-chicagoResidSpectrum.pdf", width=6, height=4,
@@ -236,9 +237,9 @@ axis(side=3, at=axisFreq, labels=labelPeriod)
 mtext(side = 3, line = 2.5, "Period in Days")
 axis(side=2, at=c(1,2,5,10,20,50,100,200,500,1000,2000,5000,10000),
      labels = c(1,2,5,"1e1","2e1","5e1","1e2","2e2","5e2","1e3","2e3","5e3","1e4"))
-abline(v=1/(60.9*86400), col="red", lty=3, lwd = 2.5)
-legend(x = "bottomright", lty = c(2, 1, 3), lwd = c(2,2,2.5), col = c("grey40", "black", "red"), 
-       legend = c("Model 2 - S-NS-6", "Model 9 - S-SLP2-12", "Ideal Band-Edge at 6 cycles/year"))
+abline(v=1/(60.9*86400), col="blue", lty=3, lwd = 2.5)
+legend(x = "bottomright", lty = c(2, 1, 3), lwd = c(2,2,2.5), col = c("grey40", "black", "blue"), 
+       legend = c("Model 2 - S-NS-6", "Model 8 - S-SLP2-12", "Ideal Band-Edge at 6 cycles/year"))
 dev.off()
 embed_fonts("figures/fig2-chicagoResidSpectrum.pdf", outfile = "figures/fig2-chicagoResidSpectrum_embed.pdf")
 
@@ -257,7 +258,7 @@ axis(side = 1, at = yrs, labels = c(1987, "", "", 1990, "", 1992, "", 1994, "", 
 lines(timeAxis, resid.old.low, lwd = 3, lty = 1, type = "l", col = "grey50")
 lines(timeAxis, resid.low, lwd=3)
 legend(x = "topright", lty = c(1, 1, 1), lwd = c(2, 3, 3), col = c("grey80", "grey50", "black"),
-       legend = c("Residuals", "Model 2 - Long Time-scale Residuals", "Model 9 - Long Time-scale Residuals"))
+       legend = c("Residuals", "Model 2 - Long Time-scale Residuals", "Model 8 - Long Time-scale Residuals"))
 dev.off()
 
 pdf(file="figures/figSupp1-chicagoResidTimeDomain.pdf", width=6, height=4,
@@ -269,7 +270,7 @@ axis(side = 1, at = yrs, labels = c(1987, "", "", 1990, "", 1992, "", 1994, "", 
 lines(timeAxis, resid.old.low, lwd = 3, lty = 1, type = "l", col = "grey50")
 lines(timeAxis, resid.low, lwd=3)
 legend(x = "topright", lty = c(1, 1, 1), lwd = c(2, 3, 3), col = c("grey80", "grey50", "black"),
-       legend = c("Residuals", "Model 2 - Long Time-scale Residuals", "Model 9 - Long Time-scale Residuals"))
+       legend = c("Residuals", "Model 2 - Long Time-scale Residuals", "Model 8 - Long Time-scale Residuals"))
 dev.off()
 embed_fonts("figures/figSupp1-chicagoResidTimeDomain.pdf", outfile = "figures/figSupp1-chicagoResidTimeDomain_embed.pdf")
 
