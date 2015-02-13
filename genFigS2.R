@@ -4,6 +4,9 @@
 library("multitaper")
 library("splines")
 library("MASS")
+library("extrafont")
+loadfonts(device = "postscript")
+loadfonts()
 
 #  3 years of data for "zoomed" in effect
 N <- 365 * 3
@@ -27,7 +30,7 @@ pMax <- max(oneP1, oneP2)
 #
 # pdf(file = "figures/gibbsRipples.pdf", width = 6, height = 4)
 postscript(file = "figures/figSupp2-gibbsRipples.eps", width = 6, height = 4,
-           horizontal = FALSE, paper = 'special')
+           horizontal = FALSE, paper = 'special', family = "CM Sans", pointsize = 9)
 par(mar = c(4,4,0.5,0.5))
 plot(1:N, oneV, type = "l", lwd = 2, lty = 3, xlab = "Time", ylab = "Magnitude", ylim = c(0.75, pMax))
 lines(1:N, oneP1, lwd = 3, lty = 1, col = "black")
@@ -36,4 +39,15 @@ legend(x = "top", legend = c("Projection onto S-NS-6", "Projection onto S-SLP-6"
        lty = c(1, 2), lwd = c(3, 1.5), col = c("black", "blue"))
 dev.off()
 
+
+pdf(file="figures/figSupp2-gibbsRipples.pdf", width = 6, height = 4,
+           paper = 'special', family = "CM Sans", pointsize = 9)
+par(mar = c(4,4,0.5,0.5))
+plot(1:N, oneV, type = "l", lwd = 2, lty = 3, xlab = "Time", ylab = "Magnitude", ylim = c(0.75, pMax))
+lines(1:N, oneP1, lwd = 3, lty = 1, col = "black")
+lines(1:N, oneP2, lwd = 1.5, lty = 2, col = "blue")
+legend(x = "top", legend = c("Projection onto S-NS-6", "Projection onto S-SLP-6"),
+       lty = c(1, 2), lwd = c(3, 1.5), col = c("black", "blue"))
+dev.off()
+embed_fonts("figures/figSupp2-gibbsRipples.pdf", outfile = "figures/figSupp2-gibbsRipples_embed.pdf")
 

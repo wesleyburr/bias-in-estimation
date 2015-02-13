@@ -1,0 +1,225 @@
+
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-redhat-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> #
+> #  Generate Figure S2 for supplement
+> #
+> library("multitaper")
+> library("splines")
+> library("MASS")
+> library("extrafont")
+Registering fonts with R
+> loadfonts(device = "postscript")
+Abyssinica SIL already registered with postscriptFonts().
+More than one version of regular/bold/italic found for Caladea. Skipping setup for this font.
+Carlito already registered with postscriptFonts().
+DejaVu Sans already registered with postscriptFonts().
+DejaVu Sans Light already registered with postscriptFonts().
+DejaVu Sans Condensed already registered with postscriptFonts().
+DejaVu Sans Mono already registered with postscriptFonts().
+DejaVu Serif already registered with postscriptFonts().
+DejaVu Serif Condensed already registered with postscriptFonts().
+FreeMono already registered with postscriptFonts().
+FreeSans already registered with postscriptFonts().
+FreeSerif already registered with postscriptFonts().
+Jomolhari already registered with postscriptFonts().
+jsMath-cmbx10 already registered with postscriptFonts().
+jsMath-cmex10 already registered with postscriptFonts().
+jsMath-cmmi10 already registered with postscriptFonts().
+jsMath-cmr10 already registered with postscriptFonts().
+jsMath-cmsy10 already registered with postscriptFonts().
+jsMath-cmti10 already registered with postscriptFonts().
+Khmer OS already registered with postscriptFonts().
+Khmer OS Content already registered with postscriptFonts().
+Khmer OS System already registered with postscriptFonts().
+Liberation Mono already registered with postscriptFonts().
+Liberation Sans already registered with postscriptFonts().
+Liberation Sans Narrow already registered with postscriptFonts().
+Liberation Serif already registered with postscriptFonts().
+LKLUG already registered with postscriptFonts().
+Lohit Assamese already registered with postscriptFonts().
+Lohit Bengali already registered with postscriptFonts().
+Lohit Devanagari already registered with postscriptFonts().
+Lohit Gujarati already registered with postscriptFonts().
+Lohit Kannada already registered with postscriptFonts().
+Lohit Oriya already registered with postscriptFonts().
+Lohit Punjabi already registered with postscriptFonts().
+Lohit Tamil already registered with postscriptFonts().
+Lohit Telugu already registered with postscriptFonts().
+Meera already registered with postscriptFonts().
+Mingzat already registered with postscriptFonts().
+NanumGothic already registered with postscriptFonts().
+NanumGothicExtraBold already registered with postscriptFonts().
+Eeyek Unicode already registered with postscriptFonts().
+Noto Sans Lisu already registered with postscriptFonts().
+Noto Sans Mandaic already registered with postscriptFonts().
+Noto Sans Meetei Mayek already registered with postscriptFonts().
+Noto Sans Tagalog already registered with postscriptFonts().
+Noto Sans Tai Tham already registered with postscriptFonts().
+Noto Sans Tai Viet already registered with postscriptFonts().
+Nuosu SIL already registered with postscriptFonts().
+OpenSymbol already registered with postscriptFonts().
+Padauk already registered with postscriptFonts().
+PT Sans already registered with postscriptFonts().
+PT Sans Narrow already registered with postscriptFonts().
+VL Gothic already registered with postscriptFonts().
+Waree already registered with postscriptFonts().
+Tahoma already registered with postscriptFonts().
+CM Roman already registered with postscriptFonts().
+CM Roman Asian already registered with postscriptFonts().
+CM Roman CE already registered with postscriptFonts().
+CM Roman Cyrillic already registered with postscriptFonts().
+CM Roman Greek already registered with postscriptFonts().
+CM Sans already registered with postscriptFonts().
+CM Sans Asian already registered with postscriptFonts().
+CM Sans CE already registered with postscriptFonts().
+CM Sans Cyrillic already registered with postscriptFonts().
+CM Sans Greek already registered with postscriptFonts().
+CM Symbol already registered with postscriptFonts().
+CM Typewriter already registered with postscriptFonts().
+CM Typewriter Asian already registered with postscriptFonts().
+CM Typewriter CE already registered with postscriptFonts().
+CM Typewriter Cyrillic already registered with postscriptFonts().
+CM Typewriter Greek already registered with postscriptFonts().
+> loadfonts()
+Abyssinica SIL already registered with pdfFonts().
+More than one version of regular/bold/italic found for Caladea. Skipping setup for this font.
+Carlito already registered with pdfFonts().
+DejaVu Sans already registered with pdfFonts().
+DejaVu Sans Light already registered with pdfFonts().
+DejaVu Sans Condensed already registered with pdfFonts().
+DejaVu Sans Mono already registered with pdfFonts().
+DejaVu Serif already registered with pdfFonts().
+DejaVu Serif Condensed already registered with pdfFonts().
+FreeMono already registered with pdfFonts().
+FreeSans already registered with pdfFonts().
+FreeSerif already registered with pdfFonts().
+Jomolhari already registered with pdfFonts().
+jsMath-cmbx10 already registered with pdfFonts().
+jsMath-cmex10 already registered with pdfFonts().
+jsMath-cmmi10 already registered with pdfFonts().
+jsMath-cmr10 already registered with pdfFonts().
+jsMath-cmsy10 already registered with pdfFonts().
+jsMath-cmti10 already registered with pdfFonts().
+Khmer OS already registered with pdfFonts().
+Khmer OS Content already registered with pdfFonts().
+Khmer OS System already registered with pdfFonts().
+Liberation Mono already registered with pdfFonts().
+Liberation Sans already registered with pdfFonts().
+Liberation Sans Narrow already registered with pdfFonts().
+Liberation Serif already registered with pdfFonts().
+LKLUG already registered with pdfFonts().
+Lohit Assamese already registered with pdfFonts().
+Lohit Bengali already registered with pdfFonts().
+Lohit Devanagari already registered with pdfFonts().
+Lohit Gujarati already registered with pdfFonts().
+Lohit Kannada already registered with pdfFonts().
+Lohit Oriya already registered with pdfFonts().
+Lohit Punjabi already registered with pdfFonts().
+Lohit Tamil already registered with pdfFonts().
+Lohit Telugu already registered with pdfFonts().
+Meera already registered with pdfFonts().
+Mingzat already registered with pdfFonts().
+NanumGothic already registered with pdfFonts().
+NanumGothicExtraBold already registered with pdfFonts().
+Eeyek Unicode already registered with pdfFonts().
+Noto Sans Lisu already registered with pdfFonts().
+Noto Sans Mandaic already registered with pdfFonts().
+Noto Sans Meetei Mayek already registered with pdfFonts().
+Noto Sans Tagalog already registered with pdfFonts().
+Noto Sans Tai Tham already registered with pdfFonts().
+Noto Sans Tai Viet already registered with pdfFonts().
+Nuosu SIL already registered with pdfFonts().
+OpenSymbol already registered with pdfFonts().
+Padauk already registered with pdfFonts().
+PT Sans already registered with pdfFonts().
+PT Sans Narrow already registered with pdfFonts().
+VL Gothic already registered with pdfFonts().
+Waree already registered with pdfFonts().
+Tahoma already registered with pdfFonts().
+CM Roman already registered with pdfFonts().
+CM Roman Asian already registered with pdfFonts().
+CM Roman CE already registered with pdfFonts().
+CM Roman Cyrillic already registered with pdfFonts().
+CM Roman Greek already registered with pdfFonts().
+CM Sans already registered with pdfFonts().
+CM Sans Asian already registered with pdfFonts().
+CM Sans CE already registered with pdfFonts().
+CM Sans Cyrillic already registered with pdfFonts().
+CM Sans Greek already registered with pdfFonts().
+CM Symbol already registered with pdfFonts().
+CM Typewriter already registered with pdfFonts().
+CM Typewriter Asian already registered with pdfFonts().
+CM Typewriter CE already registered with pdfFonts().
+CM Typewriter Cyrillic already registered with pdfFonts().
+CM Typewriter Greek already registered with pdfFonts().
+> 
+> #  3 years of data for "zoomed" in effect
+> N <- 365 * 3
+> time <- 1:N
+> Nknot <- 18
+> 
+> basis1 <- ns(time, df=Nknot) # 6 knots per year
+> basis2 <- dpss(n = N, k = Nknot, nw = (Nknot+1) / 2)$v
+> 
+> S1 <- basis1 %*% ginv(t(basis1) %*% basis1) %*% t(basis1)
+> S2 <- basis2 %*% t(basis2)
+> 
+> oneV <- rep(1, N)
+> oneP1 <- S1 %*% oneV
+> oneP2 <- S2 %*% oneV
+> 
+> pMax <- max(oneP1, oneP2)
+> 
+> #
+> #  Generate Figure S2 for supplement
+> #
+> # pdf(file = "figures/gibbsRipples.pdf", width = 6, height = 4)
+> postscript(file = "figures/figSupp2-gibbsRipples.eps", width = 6, height = 4,
++            horizontal = FALSE, paper = 'special', family = "CM Sans", pointsize = 9)
+> par(mar = c(4,4,0.5,0.5))
+> plot(1:N, oneV, type = "l", lwd = 2, lty = 3, xlab = "Time", ylab = "Magnitude", ylim = c(0.75, pMax))
+> lines(1:N, oneP1, lwd = 3, lty = 1, col = "black")
+> lines(1:N, oneP2, lwd = 1.5, lty = 2, col = "blue")
+> legend(x = "top", legend = c("Projection onto S-NS-6", "Projection onto S-SLP-6"),
++        lty = c(1, 2), lwd = c(3, 1.5), col = c("black", "blue"))
+> dev.off()
+null device 
+          1 
+> 
+> 
+> pdf(file="figures/figSupp2-gibbsRipples.pdf", width = 6, height = 4,
++            paper = 'special', family = "CM Sans", pointsize = 9)
+> par(mar = c(4,4,0.5,0.5))
+> plot(1:N, oneV, type = "l", lwd = 2, lty = 3, xlab = "Time", ylab = "Magnitude", ylim = c(0.75, pMax))
+> lines(1:N, oneP1, lwd = 3, lty = 1, col = "black")
+> lines(1:N, oneP2, lwd = 1.5, lty = 2, col = "blue")
+> legend(x = "top", legend = c("Projection onto S-NS-6", "Projection onto S-SLP-6"),
++        lty = c(1, 2), lwd = c(3, 1.5), col = c("black", "blue"))
+> dev.off()
+null device 
+          1 
+> embed_fonts("figures/figSupp2-gibbsRipples.pdf", outfile = "figures/figSupp2-gibbsRipples_embed.pdf")
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  1.475   0.117   1.579 

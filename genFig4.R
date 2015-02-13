@@ -78,7 +78,7 @@ yAxisL <- c("1e-15", "1e-14", "1e-13", "1e-12","1e-11","1e-10","1e-9","1e-8","1e
 #  Generate Figure 4 for paper
 #
 # pdf(file="figures/compareTransferFunctAll.pdf", width=6, height=5)
-postscript(file="figures/fig4-compareTransferFunctAll.eps", width=9, height=7,
+postscript(file="figures/fig4-compareTransferFunctAll.eps", width=6, height=4,
            horizontal = FALSE, paper = 'special', family = "CM Sans", pointsize = 9)
 par(mar=c(4,4,4,0.5))
 plot(freqs, theory, type="l", col="blue", lwd=2, lty = 3, log="y", xlim=c(0,20),
